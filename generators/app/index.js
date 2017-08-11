@@ -1,19 +1,19 @@
 'use strict';
-//Require dependencies
+// Require dependencies
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
-module.exports = yeoman.generators.Base.extend({
-//Configurations will be loaded here.
-//Ask for user input
+module.exports = yeoman.generators.extend({
+// Configurations will be loaded here.
+// Ask for user input
   prompting: function () {
     var done = this.async();
     this.prompt({
       type: 'input',
       name: 'name',
       message: 'asi-templates-backend question',
-      //Defaults to the project's folder name if the input is skipped
+      // Defaults to the project's folder name if the input is skipped
       default: this.appname
     }, function (answers) {
       this.props = answers
@@ -22,9 +22,9 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  //Writing Logic here
+  // Writing Logic here
   writing: {
-    //Copy the configuration files
+    // Copy the configuration files
     config: function () {
       this.fs.copyTpl(
         this.templatePath('_package.json'),
@@ -44,9 +44,9 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
-    //Copy application files
+    // Copy application files
     app: function () {
-      //Server file
+      // Server file
       this.fs.copyTpl(
         this.templatePath('_server.js'),
         this.destinationPath('server.js'),
@@ -54,7 +54,7 @@ module.exports = yeoman.generators.Base.extend({
           name: this.props.name
         }
       );
-      /////Routes
+      // Routes
       this.fs.copy(
         this.templatePath('_routes/_all.js'),
         this.destinationPath('routes/all.js'));
@@ -84,13 +84,11 @@ module.exports = yeoman.generators.Base.extend({
     }
   },
 
-  //Install Dependencies
-  install: function() {
+  // Install Dependencies
+  install: function () {
     this.installDependencies();
   }
 });
-
-
 // 'use strict';
 // const Generator = require('yeoman-generator');
 // const chalk = require('chalk');
