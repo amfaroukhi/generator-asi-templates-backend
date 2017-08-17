@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 //Create a mongoose connection
-mongoose.connect('mongodb://127.0.0.1:27017/scotchmean');
+mongoose.connect('mongodb://127.0.0.1:27017/asi-templates-backend');
 //Load custom dependencies
 var routes = require('./routes/all');
 

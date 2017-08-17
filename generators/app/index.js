@@ -1,127 +1,77 @@
 'use strict';
-// Require dependencies
+var fs = require('fs');
+var path = require('path');
+var util = require('util');
+// var angularUtils = require('../util.js');
+// var wiredep = require('wiredep');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var lodash = require('underscore.string');
 
-module.exports = yeoman.generators.extend({
-// Configurations will be loaded here.
-// Ask for user input
-  prompting: function () {
-    var done = this.async();
-    this.prompt({
-      type: 'input',
-      name: 'name',
-      message: 'asi-templates-backend question',
-      // Defaults to the project's folder name if the input is skipped
-      default: this.appname
-    }, function (answers) {
-      this.props = answers
-      this.log(answers.name);
-      done();
-    }.bind(this));
+module.exports = yeoman.extend({
+  constructor: function (args, options) {
+    yeoman.apply(this, arguments);
+    this.argument('appname', {
+      type: String,
+      required: false
+    });
+    this.appname = this.appname || path.basename(process.cwd());
+    this.appname = lodash.camelize(lodash.slugify(lodash.humanize(this.appname)));
+
+    // this.scriptAppName = this.appname + angularUtils.appName(this);
+
+    args = ['main'];
+
+    if (typeof this.env.options.appPath === 'undefined') {
+      this.env.options.appPath = this.options.appPath;
+
+      if (!this.env.options.appPath) {
+        try {
+          this.env.options.appPath = require(path.join(process.cwd(), 'bower.json')).appPath;
+        } catch (e) {}
+      }
+      this.env.options.appPath = this.env.options.appPath || 'app';
+      this.options.appPath = this.env.options.appPath;
+    }
+
+    this.appPath = this.env.options.appPath;
+
+    this.pkg = require('../../package.json');
+    this.sourceRoot(path.join(__dirname, '../templates/common'));
+
   },
 
-  // Writing Logic here
-  writing: {
-    // Copy the configuration files
-    config: function () {
-      this.fs.copyTpl(
-        this.templatePath('_package.json'),
-        this.destinationPath('package.json'), {
-          name: this.props.name
-        }
-      );
-      this.fs.copyTpl(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json'), {
-          name: this.props.name
-        }
-      );
-      this.fs.copy(
-        this.templatePath('bowerrc'),
-        this.destinationPath('.bowerrc')
-      );
-    },
-
-    // Copy application files
-    app: function () {
-      // Server file
-      this.fs.copyTpl(
-        this.templatePath('_server.js'),
-        this.destinationPath('server.js'),
-        this.destinationPath('/views/index.ejs'), {
-          name: this.props.name
-        }
-      );
-      // Routes
-      this.fs.copy(
-        this.templatePath('_routes/_all.js'),
-        this.destinationPath('routes/all.js'));
-
-      // Model
-      this.fs.copy(
-        this.templatePath('_model/_todo.js'),
-        this.destinationPath('model/todo.js'));
-
-      // Views
-      this.fs.copyTpl(
-        this.templatePath('_views/_index.ejs'),
-        this.destinationPath('/views/index.ejs'), {
-          name: this.props.name
-        }
-      );
-
-      // Public/
-      this.fs.copy(
-        this.templatePath('_public/_css/_app.css'),
-        this.destinationPath('public/css/app.css')
-      );
-      this.fs.copy(
-        this.templatePath('_public/_js/_app.js'),
-        this.destinationPath('public/js/app.js')
-      );
+  initializing: function () {
+    if (!this.options['skip-welcome-message']) {
+      this.log(yosay(
+        'Bienvenue sur le générateur ' + chalk.yellow('\nbackend ASI\n') + ' basé sur yeoman!'
+      ));
+      this.log(chalk.yellow('Ce générateur est basé sur le générateur generator-spring de yeoman (davetownsend).\n'));
     }
   },
 
-  // Install Dependencies
-  install: function () {
-    this.installDependencies();
+  genericFiles: function () {
+    this.sourceRoot(path.join(__dirname, './templates/'));
+    // this.copy('gitignore', '_gitignore');
+  },
+
+  callSub: function () {
+    this.composeWith('asi-templates-backend:asi-backend', {
+      options: {
+        appname: this.appname,
+        'skip-welcome-message': this.options['skip-welcome-message']
+      }
+    });
+
+    // this.composeWith('full-separated-angular-spring:angular', {
+    //   options: {
+    //     appname: this.appname,
+    //     'skip-welcome-message': this.options['skip-welcome-message'],
+    //     appPath: this.appPath,
+    //     scriptAppName: this.scriptAppName,
+    //     'skip-install': this.options['skip-install']
+    //   }
+    // });
   }
 });
-// 'use strict';
-// const Generator = require('yeoman-generator');
-// const chalk = require('chalk');
-// const yosay = require('yosay');
-//
-// module.exports = class extends Generator {
-//   prompting() {
-//     // Have Yeoman greet the user.
-//     this.log(yosay(
-//       'Welcome to the super-duper ' + chalk.red('generator-asi-templates-backend') + ' generator!'
-//     ));
-//
-//     const prompts = [{
-//       type: 'confirm',
-//       name: 'someAnswer',
-//       message: 'Would you like to enable this option?',
-//       default: true
-//     }];
-//
-//     return this.prompt(prompts).then(props => {
-//       // To access props later use this.props.someAnswer;
-//       this.props = props;
-//     });
-//   }
-//
-//   writing() {
-//     this.fs.copy(
-//       this.templatePath('dummyfile.txt'),
-//       this.destinationPath('dummyfile.txt')
-//     );
-//   }
-//
-//   install() {
-//     this.installDependencies();
-//   }
-// };
