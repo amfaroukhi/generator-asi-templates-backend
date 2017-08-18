@@ -213,7 +213,7 @@ module.exports = class extends Generator {
     }
 
     getDefaultAppName() {
-        return (/^[a-zA-Z0-9_]+$/.test(path.basename(process.cwd()))) ? path.basename(process.cwd()) : 'asi-templates-backends';
+        return (/^[a-zA-Z0-9_]+$/.test(path.basename(process.cwd()))) ? path.basename(process.cwd()) : 'asi-templates-backend';
     }
 
     formatAsClassJavadoc(text) {

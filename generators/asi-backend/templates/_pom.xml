@@ -73,8 +73,8 @@
         <!-- Build -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
-        <snapshot.repository.url></snapshot.repository.url>
-        <release.repository.url></release.repository.url>
+        <!--<snapshot.repository.url></snapshot.repository.url>-->
+        <!--<release.repository.url></release.repository.url>-->
 
         <!-- Socle Asi -->
         <socleasi.quality.version>1.0</socleasi.quality.version>
@@ -428,6 +428,7 @@
     </dependencyManagement>
 
     <build>
+        <defaultGoal>install</defaultGoal> <!-- ajouté par obligation : error musst have goal -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -466,6 +467,17 @@
                                 <source>${integration.source.dir}</source>
                             </sources>
                         </configuration>
+                    </execution>
+                    <execution>
+                      <id>timestamp-property</id>
+                      <goals>
+                        <goal>timestamp-property</goal>
+                      </goals>
+                      <configuration>
+                        <name>build.timestamp</name>
+                        <pattern>dd/MM/yyyy HH:mm:ss</pattern>
+                        <timeZone>Europe/Paris</timeZone>
+                      </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -545,25 +557,6 @@
                     <testClassesDirectory>${integration.class.dir}</testClassesDirectory>
                     <skipTests>${integration.tests}</skipTests>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>${mavenBuildHelperPlugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>timestamp-property</id>
-                        <goals>
-                            <goal>timestamp-property</goal>
-                        </goals>
-                        <configuration>
-                            <name>build.timestamp</name>
-                            <pattern>dd/MM/yyyy HH:mm:ss</pattern>
-                            <timeZone>Europe/Paris</timeZone>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
 

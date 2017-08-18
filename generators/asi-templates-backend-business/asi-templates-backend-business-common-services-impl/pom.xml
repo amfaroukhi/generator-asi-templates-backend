@@ -6,6 +6,7 @@
         <artifactId>asi-templates-backend-business</artifactId>
         <groupId>fr.asi.expertise</groupId>
         <version>0.1.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
