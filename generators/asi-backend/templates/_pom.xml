@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.0.RELEASE</version>
+    </parent>
+
+    <groupId>fr.asi.expertise</groupId>
+    <artifactId>asi-templates-backend</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <scm>
+        <connection>scm:git:git@cdsgit:asi-expertise/asi-templates-backend.git</connection>
+        <developerConnection>scm:git:git@cdsgit:asi-expertise/asi-templates-backend.git</developerConnection>
+        <url>http://cdsgit/asi-expertise/asi-templates-backend.git</url>
+    </scm>
+
+    <modules>
+        <module>asi-templates-backend-batch</module>
+        <module>asi-templates-backend-business</module>
+        <module>asi-templates-backend-common-dependencies</module>
+        <module>asi-templates-backend-common-dto</module>
+        <module>asi-templates-backend-common-serialize</module>
+        <module>asi-templates-backend-config</module>
+        <module>asi-templates-backend-dao</module>
+        <module>asi-templates-backend-database-services</module>
+        <module>asi-templates-backend-dto</module>
+        <module>asi-templates-backend-ged-services</module>
+        <module>asi-templates-backend-helpers</module>
+        <module>asi-templates-backend-mappers</module>
+        <module>asi-templates-backend-model</module>
+        <module>asi-templates-backend-override</module>
+        <module>asi-templates-backend-report</module>
+        <module>asi-templates-backend-resources</module>
+        <module>asi-templates-backend-serialize</module>
+        <module>asi-templates-backend-technical-services</module>
+        <module>asi-templates-backend-utils</module>
+        <module>asi-templates-backend-validators</module>
+        <module>asi-templates-backend-web-services</module>
+        <module>asi-templates-backend-webapp</module>
+    </modules>
+
+    <properties>
+
+        <!-- Quality -->
+        <pmd.jdk.version>1.8</pmd.jdk.version>
+        <checkstyle.conf>checkstyle/config_checkstyle.xml</checkstyle.conf>
+        <checkstyle.supression>checkstyle/checkstyle-suppressions.xml</checkstyle.supression>
+        <findbugs.exclude/>
+
+        <!-- Maven's plugins -->
+        <mavenReleasePlugin.version>2.5.3</mavenReleasePlugin.version>
+        <mavenPmdPlugin.version>3.6</mavenPmdPlugin.version>
+        <mavenCheckstylePlugin.version>2.16</mavenCheckstylePlugin.version>
+        <mavenFindbugsPlugin.version>3.0.2</mavenFindbugsPlugin.version>
+        <mavenCoberturaPlugin.version>2.7</mavenCoberturaPlugin.version>
+        <mavenCompilerPlugin.version>3.3</mavenCompilerPlugin.version>
+        <mavenFailsafePlugin.version>2.19.1</mavenFailsafePlugin.version>
+        <mavenSurefirePlugin.version>2.19.1</mavenSurefirePlugin.version>
+        <mavenBuildHelperPlugin.version>1.12</mavenBuildHelperPlugin.version>
+        <mavenResourcePlugin.version>3.0.1</mavenResourcePlugin.version>
+        <mavenReportPlugin.version>2.9</mavenReportPlugin.version>
+        <mavenJacocoPlugin.version>0.7.7.201606060606</mavenJacocoPlugin.version>
+        <mavenBuildHelperPlugin.version>1.10</mavenBuildHelperPlugin.version>
+
+
+        <!-- Build -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.8</jdk.version>
+        <snapshot.repository.url></snapshot.repository.url>
+        <release.repository.url></release.repository.url>
+
+        <!-- Socle Asi -->
+        <socleasi.quality.version>1.0</socleasi.quality.version>
+        <socleasi.postgres.version>1.0</socleasi.postgres.version>
+        <socleasi.logs.version>1.2</socleasi.logs.version>
+        <socleasi.data-dump.version>1.2</socleasi.data-dump.version>
+        <socleasi.validation.version>1.0</socleasi.validation.version>
+        <socleasi.sql-log.version>1.2</socleasi.sql-log.version>
+        <socleasi.synchronize.list.version>1.0</socleasi.synchronize.list.version>
+        <socleasi.jasper.version>1.0</socleasi.jasper.version>
+        <socleasi.mail.version>1.0</socleasi.mail.version>
+        <socleasi.alfresco.api.version>1.1</socleasi.alfresco.api.version>
+        <socleasi.metrics.version>1.1</socleasi.metrics.version>
+
+        <!-- Apache common -->
+        <common.lang.version>3.4</common.lang.version>
+        <common.validator.version>1.5.1</common.validator.version>
+        <common.collections.version>4.1</common.collections.version>
+        <common.poi.version>3.15</common.poi.version>
+        <common.poi-ooxml.version>3.15</common.poi-ooxml.version>
+        <common.csv.version>1.4</common.csv.version>
+        <common.io.version>2.5</common.io.version>
+
+        <!-- Test -->
+        <assertj-core.version>3.3.0</assertj-core.version>
+        <integration.source.dir>src/it/java</integration.source.dir>
+        <integration.resources.dir>src/it/resources</integration.resources.dir>
+        <integration.class.dir>${project.build.directory}/it-classes</integration.class.dir>
+        <integration.tests>true</integration.tests>
+        <jacoco.it.execution.data.file>${project.build.directory}/coverage-reports/jacoco-it.exec
+        </jacoco.it.execution.data.file>
+        <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
+        </jacoco.ut.execution.data.file>
+
+        <!-- Hibernate -->
+        <hibernate.version>5.2.2.Final</hibernate.version>
+
+        <!-- Jasper -->
+        <jasper.fonts.version>6.0.0</jasper.fonts.version>
+
+        <!-- querydsl -->
+        <querydsl.version>4.1.3</querydsl.version>
+
+        <!-- Logs -->
+        <log4jdbc.version>1.16</log4jdbc.version>
+
+    </properties>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshot</id>
+            <name>Groupe Snapshot</name>
+            <url>${snapshot.repository.url}</url>
+            <uniqueVersion>false</uniqueVersion>
+            <layout>default</layout>
+        </snapshotRepository>
+        <repository>
+            <id>release</id>
+            <name>Groupe release</name>
+            <url>${release.repository.url}</url>
+            <uniqueVersion>false</uniqueVersion>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>snapshot</id>
+            <name>Groupe Snapshot</name>
+            <url>${snapshot.repository.url}</url>
+        </repository>
+        <repository>
+            <id>release</id>
+            <name>Groupe release</name>
+            <url>${release.repository.url}</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>snapshot</id>
+            <name>Groupe Snapshot</name>
+            <url>${snapshot.repository.url}</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>release</id>
+            <name>Groupe release</name>
+            <url>${release.repository.url}</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Project -->
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-business-common-services-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-business-services-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-common-dependencies</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-common-dto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-dto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-common-serialize</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-serialize</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-common-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-rest-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-security-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-tools</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-tools-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-database-services-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-ged-services-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-helpers</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-mappers</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-report-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-i18n</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-properties</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-technical-services-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-validators-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-web-services-int</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-override-dev</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.expertise</groupId>
+                <artifactId>asi-templates-backend-override-rec</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- Socle asi -->
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>asi-postgressql-tools</artifactId>
+                <version>${socleasi.postgres.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>easy-logs</artifactId>
+                <version>${socleasi.logs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>asi-validation</artifactId>
+                <version>${socleasi.validation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>sql-log</artifactId>
+                <version>${socleasi.sql-log.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>asi-synchronize-list</artifactId>
+                <version>${socleasi.synchronize.list.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>asi-jasperreport-api</artifactId>
+                <version>${socleasi.jasper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>asi-mail</artifactId>
+                <version>${socleasi.mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>data-dump</artifactId>
+                <version>${socleasi.data-dump.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.asi.components</groupId>
+                <artifactId>asi-metrics</artifactId>
+                <version>${socleasi.metrics.version}</version>
+            </dependency>
+
+            <!-- Apache commons -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${common.lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${common.validator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${common.collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${common.poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${common.poi-ooxml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-csv</artifactId>
+                <version>${common.csv.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${common.io.version}</version>
+            </dependency>
+
+
+            <!-- Log -->
+            <dependency>
+                <groupId>org.bgee.log4jdbc-log4j2</groupId>
+                <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+                <version>${log4jdbc.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${mavenReleasePlugin.version}</version>
+                <configuration>
+                    <updateDependencies>false</updateDependencies>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <preparationGoals>clean install -P prod -DskipTests</preparationGoals>
+                    <goals>deploy -P prod -DskipTests</goals>
+                </configuration>
+            </plugin>
+
+            <!-- Intégration Tests -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${mavenBuildHelperPlugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>add-it-source</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${integration.source.dir}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${mavenResourcePlugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>add-it-resources</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${integration.class.dir}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${integration.resources.dir}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${mavenCompilerPlugin.version}</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compile-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <testIncludes>
+                                <testInclude>**/*IT.java</testInclude>
+                            </testIncludes>
+                            <outputDirectory>${integration.class.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${mavenSurefirePlugin.version}</version>
+                <configuration>
+                    <argLine>${surefireArgLine}</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${mavenFailsafePlugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <argLine>${failsafeArgLine}</argLine>
+                    <testSourceDirectory>${integration.source.dir}</testSourceDirectory>
+                    <testClassesDirectory>${integration.class.dir}</testClassesDirectory>
+                    <skipTests>${integration.tests}</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${mavenBuildHelperPlugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>timestamp-property</id>
+                        <goals>
+                            <goal>timestamp-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>build.timestamp</name>
+                            <pattern>dd/MM/yyyy HH:mm:ss</pattern>
+                            <timeZone>Europe/Paris</timeZone>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${mavenPmdPlugin.version}</version>
+                    <configuration>
+                        <targetJdk>${pmd.jdk.version}</targetJdk>
+                        <failOnViolation>false</failOnViolation>
+                        <failurePriority>3</failurePriority>
+                        <excludeRoots>
+                            <excludeRoot>target/generated-sources/java</excludeRoot>
+                        </excludeRoots>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                                <goal>cpd-check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${mavenCheckstylePlugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>fr.asi.expertise</groupId>
+                            <artifactId>asi-quality-check</artifactId>
+                            <version>${socleasi.quality.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <failOnViolation>false</failOnViolation>
+                        <failsOnError>false</failsOnError>
+                        <configLocation>${checkstyle.conf}</configLocation>
+                        <suppressionsLocation>${checkstyle.supression}</suppressionsLocation>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${mavenFindbugsPlugin.version}</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <xmlOutput>true</xmlOutput>
+                        <findbugsXmlOutput>true</findbugsXmlOutput>
+                        <effort>Max</effort>
+                        <threshold>Low</threshold>
+                        <excludeFilterFile>${findbugs.exclude}</excludeFilterFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>${mavenCoberturaPlugin.version}</version>
+                    <configuration>
+                        <formats>
+                            <format>xml</format>
+                            <format>html</format>
+                        </formats>
+                        <instrumentation>
+                            <ignoreTrivial>true</ignoreTrivial>
+                            <excludes>
+                                <exclude>**/*Test.class</exclude>
+                                <exclude>**/*IT.class</exclude>
+                                <exclude>**/*Enum.class</exclude>
+                                <exclude>**/model/**/Q*.class</exclude>
+                            </excludes>
+                        </instrumentation>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${mavenJacocoPlugin.version}</version>
+                    <executions>
+                        <!-- Prepares the property pointing to the JaCoCo runtime agent which
+                            is passed as VM argument when Maven the Failsafe plugin is executed. -->
+                        <execution>
+                            <id>pre-integration-test</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Sets the path to the file which contains the execution data. -->
+                                <destFile>${jacoco.it.execution.data.file}</destFile>
+                                <!-- Sets the name of the property containing the settings for JaCoCo
+                                    runtime agent. -->
+                                <propertyName>failsafeArgLine</propertyName>
+                            </configuration>
+                        </execution>
+                        <!-- Ensures that the code coverage report for integration tests after
+                            integration tests have been run. -->
+                        <execution>
+                            <id>post-integration-test</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Sets the path to the file which contains the execution data. -->
+                                <dataFile>${jacoco.it.execution.data.file}</dataFile>
+                                <!-- Sets the output directory for the code coverage report. -->
+                                <outputDirectory>${project.reporting.outputDirectory}/jacoco-it</outputDirectory>
+                            </configuration>
+                        </execution>
+
+                        <execution>
+                            <id>pre-unit-tests</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Sets the path to the file which contains the execution data. -->
+                                <destFile>${jacoco.ut.execution.data.file}</destFile>
+                                <!-- Sets the name of the property containing the settings for JaCoCo runtime agent. -->
+                                <propertyName>surefireArgLine</propertyName>
+                            </configuration>
+                        </execution>
+                        <!-- Ensures that the code coverage report for unit tests is created after unit tests have been run -->
+                        <execution>
+                            <id>post-unit-test</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <configuration>
+                                <dataFile>${jacoco.ut.execution.data.file}</dataFile>
+                                <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>default-check</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <rule>
+                                        <element>BUNDLE</element>
+                                        <limits>
+                                            <limit>
+                                                <counter>COMPLEXITY</counter>
+                                                <value>COVEREDRATIO</value>
+                                                <minimum>0.10</minimum>
+                                            </limit>
+                                        </limits>
+                                    </rule>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>quality</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>integration-tests</id>
+            <properties>
+                <integration.tests>false</integration.tests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${mavenReportPlugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <!-- select non-aggregate reports -->
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
