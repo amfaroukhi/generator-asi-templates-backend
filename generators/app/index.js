@@ -1,17 +1,3 @@
-
-// var fs = require('fs');
-// var path = require('path');
-// var util = require('util');
-// // var angularUtils = require('../util.js');
-// // var wiredep = require('wiredep');
-// var yeoman = require('yeoman-generator');
-// var chalk = require('chalk');
-// var yosay = require('yosay');
-// var lodash = require('underscore.string');
-
-
-
-
 const util = require('util');
 const generator = require('yeoman-generator');
 const chalk = require('chalk');
@@ -35,7 +21,7 @@ module.exports = ASIGenerator.extend({
   this.option('skip-client', {
     desc: 'Skip the client-side application generation',
     type: Boolean,
-    defaults: false
+    defaults: true
   });
 
   // This adds support for a `--skip-server` flag
@@ -49,14 +35,14 @@ module.exports = ASIGenerator.extend({
   this.option('skip-user-management', {
     desc: 'Skip the user management module during app generation',
     type: Boolean,
-    defaults: false
+    defaults: true
   });
 
   // This adds support for a `--[no-]i18n` flag
   this.option('i18n', {
     desc: 'Disable or enable i18n when skipping client side generation, has no effect otherwise',
     type: Boolean,
-    defaults: true
+    defaults: false
   });
 
   // This adds support for a `--with-entities` flag
@@ -70,21 +56,21 @@ module.exports = ASIGenerator.extend({
   this.option('skip-checks', {
     desc: 'Check the status of the required tools',
     type: Boolean,
-    defaults: false
+    defaults: true
   });
 
-  // This adds support for a `--jhi-prefix` flag
-  this.option('jhi-prefix', {
+  // This adds support for a `--asi-prefix` flag
+  this.option('asi-prefix', {
     desc: 'Add prefix before services, controllers and states name',
     type: String,
-    defaults: 'jhi'
+    defaults: 'asi'
   });
 
   // This adds support for a `--npm` flag
   this.option('npm', {
     desc: 'Use npm instead of yarn',
     type: Boolean,
-    defaults: false
+    defaults: true
   });
 
   // This adds support for a `--auth` flag
@@ -104,7 +90,7 @@ module.exports = ASIGenerator.extend({
   this.skipClient = this.configOptions.skipClient = this.options['skip-client'] || this.config.get('skipClient');
   this.skipServer = this.configOptions.skipServer = this.options['skip-server'] || this.config.get('skipServer');
   this.skipUserManagement = this.configOptions.skipUserManagement = this.options['skip-user-management'] || this.config.get('skipUserManagement');
-  this.jhiPrefix = this.configOptions.jhiPrefix || this.config.get('jhiPrefix') || this.options['jhi-prefix'];
+  this.asiPrefix = this.configOptions.asiPrefix || this.config.get('asiPrefix') || this.options['asi-prefix'];
   this.withEntities = this.options['with-entities'];
   this.skipChecks = this.options['skip-checks'];
   this.useYarn = this.configOptions.useYarn = !this.options.npm;
@@ -144,20 +130,20 @@ initializing: {
 
   validate() {
     if (this.skipServer && this.skipClient) {
-      this.error(chalk.red(`You can not pass both ${chalk.yellow('--skip-client')} and ${chalk.yellow('--skip-server')} together`));
+      this.error(chalk.red(`Vous ne pouvez pas activer ${chalk.yellow('--skip-client')} et ${chalk.yellow('--skip-server')} ensemble`));
     }
   },
 
   setupconsts() {
     this.applicationType = this.config.get('applicationType');
     if (!this.applicationType) {
-      this.applicationType = 'monolith';
+      this.applicationType = 'server';
     }
     this.baseName = this.config.get('baseName');
-    this.jhipsterVersion = packagejs.version;
-    if (this.jhipsterVersion === undefined) {
-      this.jhipsterVersion = this.config.get('jhipsterVersion');
-    }
+    /**this.asiGenVersion = packagejs.version;
+    if (this.asiGenVersion === undefined) {
+      this.asiGenVersion = this.config.get('asiGenVersion');
+    }*/
     this.otherModules = this.config.get('otherModules');
     this.testFrameworks = this.config.get('testFrameworks');
     this.enableTranslation = this.config.get('enableTranslation');
@@ -248,7 +234,7 @@ configuring: {
 
 default: {
 
-  askForTestOpts: prompts.askForTestOpts,
+    askForTestOpts: prompts.askForTestOpts,
 
     // askForMoreModules: prompts.askForMoreModules,
 
@@ -273,15 +259,15 @@ default: {
 
   composeLanguages() {
     if (this.skipI18n) return;
-    this.composeLanguagesSub(this, this.configOptions, this.generatorType);
+    // this.composeLanguagesSub(this, this.configOptions, this.generatorType);
   },
 
   saveConfig() {
-    this.config.set('jhipsterVersion', packagejs.version);
+    //this.config.set('asiGenVersion', packagejs.version); Gestion des versions/maj jhipster
     this.config.set('applicationType', this.applicationType);
     this.config.set('baseName', this.baseName);
     this.config.set('testFrameworks', this.testFrameworks);
-    this.config.set('jhiPrefix', this.jhiPrefix);
+    this.config.set('asiPrefix', this.asiPrefix);
     this.config.set('otherModules', this.otherModules);
     if (this.skipClient) this.config.set('skipClient', true);
     if (this.skipServer) this.config.set('skipServer', true);
@@ -296,11 +282,13 @@ default: {
 },
 
 writing: {
-  cleanup() {
+  // Gestion des anciennes versions créées
+  /**cleanup() {
     cleanup.cleanupOldFiles(this, this.javaDir, this.testDir);
-  },
+  },*/
 
-  regenerateEntities() {
+  // Gestion de la génération des entités
+  /**regenerateEntities() {
     if (this.withEntities) {
       this.getExistingEntities().forEach((entity) => {
         this.composeWith(require.resolve('../entity'), {
@@ -312,10 +300,10 @@ writing: {
       });
     });
     }
-  }
+  }*/
 },
 
-end: {
+/**end: {
   localInstall() {
     if (this.skipClient) {
       if (this.otherModules === undefined) {
@@ -327,10 +315,10 @@ end: {
 
       if (!this.options['skip-install']) {
         if (this.clientPackageManager === 'yarn') {
-          this.log(chalk.bold(`\nInstalling generator-jhipster@${this.jhipsterVersion} locally using yarn`));
+          this.log(chalk.bold(`\nInstalling generator-jhipster@${this.asiGenVersion} locally using yarn`));
           this.spawnCommand('yarn', ['install']);
         } else if (this.clientPackageManager === 'npm') {
-          this.log(chalk.bold(`\nInstalling generator-jhipster@${this.jhipsterVersion} locally using npm`));
+          this.log(chalk.bold(`\nInstalling generator-jhipster@${this.asiGenVersion} locally using npm`));
           this.npmInstall();
         }
       }
@@ -352,6 +340,6 @@ end: {
       this.log(`\n${chalk.bold.red('Running post run module hooks failed. No modification done to the generated app.')}`);
     }
   }
-}
+}*/
 });
 
