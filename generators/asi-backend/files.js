@@ -99,7 +99,7 @@ function writeFiles() {
 
     writeServerBuildFiles() {
       switch (this.buildTool) {
-        case 'gradle':
+        /**case 'gradle':
           this.template('_build.gradle', 'build.gradle');
           this.template('_settings.gradle', 'settings.gradle');
           this.template('_gradle.properties', 'gradle.properties');
@@ -124,7 +124,7 @@ function writeFiles() {
           this.copy('gradlew.bat', 'gradlew.bat');
           this.copy('gradle/wrapper/gradle-wrapper.jar', 'gradle/wrapper/gradle-wrapper.jar');
           this.copy('gradle/wrapper/gradle-wrapper.properties', 'gradle/wrapper/gradle-wrapper.properties');
-          break;
+          break;*/
         case 'maven':
         default :
           this.copy('mvnw', 'mvnw');

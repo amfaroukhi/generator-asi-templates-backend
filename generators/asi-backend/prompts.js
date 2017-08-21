@@ -33,7 +33,7 @@ function askForServerSideOpts() {
     name: 'serverPort',
     validate: input => (/^([0-9]*)$/.test(input) ? true : 'Numéro de port non valide!'),
     message: response => this.getNumberedQuestion(
-    'Sur quel port désirez vous que votre serveur soit lancé? Ceci pour éviter les conflits.',
+    'Sur quel port désirez vous lancer votre serveur? Ceci pour éviter les conflits.',
     applicationType === 'client' || applicationType === 'server' || applicationType === 'full'
   ),
 default: defaultPort
@@ -42,7 +42,7 @@ default: defaultPort
     type: 'input',
       name: 'packageName',
     validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ?
-    true : 'Le nom du package Java saisi n\'est pas un valide.'),
+    true : 'Le nom du package Java saisi n\'est pas valide.'),
     message: response => this.getNumberedQuestion('Saisissez le nom de votre package java par défaut?', true),
   default: 'asi.templates.backend',
     store: true

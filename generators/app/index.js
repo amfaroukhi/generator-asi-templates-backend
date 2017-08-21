@@ -106,28 +106,6 @@ initializing: {
     this.checkJava();
   },
 
-  // checkNode() {
-  //   this.checkNode();
-  // },
-  //
-  // checkGit() {
-  //   this.checkGit();
-  // },
-  //
-  // checkGitConnection() {
-  //   this.checkGitConnection();
-  // },
-  //
-  // checkYarn() {
-  //   this.checkYarn();
-  // },
-  //
-  // checkForNewVersion() {
-  //   if (!this.skipChecks) {
-  //     this.checkForNewVersion();
-  //   }
-  // },
-
   validate() {
     if (this.skipServer && this.skipClient) {
       this.error(chalk.red(`Vous ne pouvez pas activer ${chalk.yellow('--skip-client')} et ${chalk.yellow('--skip-server')} ensemble`));
@@ -169,7 +147,6 @@ initializing: {
 },
 
 prompting: {
-    // askForInsightOptIn: prompts.askForInsightOptIn,
     askForApplicationType: prompts.askForApplicationType,
     askForModuleName: prompts.askForModuleName
 },
@@ -219,15 +196,16 @@ configuring: {
     });
   },
 
-  // composeClient() {
-  //   if (this.skipClient) return;
-  //
-  //   this.composeWith(require.resolve('../client'), {
-  //     'skip-install': this.options['skip-install'],
-  //     configOptions: this.configOptions,
-  //     force: this.options.force
-  //   });
-  // },
+  // Désactiver l'option --skipClient pour permettre la génération de client (à venir)
+  composeClient() {
+    if (this.skipClient) return;
+
+    this.composeWith(require.resolve('../client'), {
+      'skip-install': this.options['skip-install'],
+      configOptions: this.configOptions,
+      force: this.options.force
+    });
+  },
 
   askFori18n: prompts.askFori18n
 },
@@ -301,45 +279,6 @@ writing: {
     });
     }
   }*/
-},
-
-/**end: {
-  localInstall() {
-    if (this.skipClient) {
-      if (this.otherModules === undefined) {
-        this.otherModules = [];
-      }
-      // Generate a package.json file containing the current version
-      // of the generator as dependency
-      this.template('_skipClientApp.package.json', 'package.json');
-
-      if (!this.options['skip-install']) {
-        if (this.clientPackageManager === 'yarn') {
-          this.log(chalk.bold(`\nInstalling generator-jhipster@${this.asiGenVersion} locally using yarn`));
-          this.spawnCommand('yarn', ['install']);
-        } else if (this.clientPackageManager === 'npm') {
-          this.log(chalk.bold(`\nInstalling generator-jhipster@${this.asiGenVersion} locally using npm`));
-          this.npmInstall();
-        }
-      }
-    }
-  },
-
-  afterRunHook() {
-    try {
-      const modules = this.getModuleHooks();
-      if (modules.length > 0) {
-        this.log(`\n${chalk.bold.green('Running post run module hooks\n')}`);
-        // run through all post app creation module hooks
-        this.callHooks('app', 'post', {
-          appConfig: this.configOptions,
-          force: this.options.force
-        });
-      }
-    } catch (err) {
-      this.log(`\n${chalk.bold.red('Running post run module hooks failed. No modification done to the generated app.')}`);
-    }
-  }
-}*/
+}
 });
 

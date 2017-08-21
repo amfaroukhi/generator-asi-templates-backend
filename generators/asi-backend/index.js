@@ -14,7 +14,6 @@ const ASIServerGenerator = generator.extend({});
 
 util.inherits(ASIServerGenerator, BaseGenerator);
 
-/* Constants used throughout */
 const QUESTIONS = constants.SERVER_QUESTIONS;
 
 module.exports = ASIServerGenerator.extend({
@@ -125,7 +124,7 @@ initializing: {
     this.packageName = this.config.get('packageName');
     this.serverPort = this.config.get('serverPort');
     if (this.serverPort === undefined) {
-      this.serverPort = '8080';
+      this.serverPort = '9091';
     }
     this.websocket = this.config.get('websocket') === 'no' ? false : this.config.get('websocket');
     this.searchEngine = this.config.get('searchEngine') === 'no' ? false : this.config.get('searchEngine');
