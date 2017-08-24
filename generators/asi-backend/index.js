@@ -3,12 +3,12 @@ const generator = require('yeoman-generator');
 const chalk = require('chalk');
 const _ = require('lodash');
 const prompts = require('./prompts');
-const BaseGenerator = require('../generator-base');
+const BaseGenerator = require('../../utils/generator-base');
 const writeFiles = require('./files').writeFiles;
 const packagejs = require('../../package.json');
 const crypto = require('crypto');
 const os = require('os');
-const constants = require('../generator-constants');
+const constants = require('../../utils/generator-constants');
 
 const ASIServerGenerator = generator.extend({});
 
@@ -17,35 +17,15 @@ util.inherits(ASIServerGenerator, BaseGenerator);
 const QUESTIONS = constants.SERVER_QUESTIONS;
 
 module.exports = ASIServerGenerator.extend({
-  constructor: function (...args) { // eslint-disable-line object-shorthand
+  constructor: function (...args)
+{ // eslint-disable-line object-shorthand
   generator.apply(this, args);
 
   this.configOptions = this.options.configOptions || {};
 
-  // This adds support for a `--[no-]client-hook` flag
-  this.option('client-hook', {
-    desc: 'Enable gulp and bower hook from maven/gradle build',
-    type: Boolean,
-    defaults: false
-  });
-
   // This adds support for a `--[no-]i18n` flag
   this.option('i18n', {
     desc: 'Disable or enable i18n when skipping client side generation, has no effect otherwise',
-    type: Boolean,
-    defaults: false
-  });
-
-  // This adds support for a `--protractor` flag
-  this.option('protractor', {
-    desc: 'Enable protractor tests',
-    type: Boolean,
-    defaults: false
-  });
-
-  // This adds support for a `--cucumber` flag
-  this.option('cucumber', {
-    desc: 'Enable cucumber tests',
     type: Boolean,
     defaults: false
   });
@@ -57,13 +37,10 @@ module.exports = ASIServerGenerator.extend({
     defaults: true
   });
 
-  this.skipClient = !this.options['client-hook'] || this.configOptions.skipClient || this.config.get('skipClient');
+  this.skipClient = this.configOptions.skipClient || this.config.get('skipClient');
   this.skipUserManagement = this.configOptions.skipUserManagement || this.options['skip-user-management'] || this.config.get('skipUserManagement');
   this.enableTranslation = this.options.i18n || this.configOptions.enableTranslation || this.config.get('enableTranslation');
   this.testFrameworks = [];
-
-  if (this.options.gatling) this.testFrameworks.push('gatling');
-  if (this.options.cucumber) this.testFrameworks.push('cucumber');
 
   this.currentQuestion = this.configOptions.lastQuestion ? this.configOptions.lastQuestion : 0;
   this.totalQuestions = this.configOptions.totalQuestions ? this.configOptions.totalQuestions : QUESTIONS;
@@ -71,15 +48,20 @@ module.exports = ASIServerGenerator.extend({
   this.baseName = this.configOptions.baseName;
   this.clientPackageManager = this.configOptions.clientPackageManager;
   this.isDebugEnabled = this.configOptions.isDebugEnabled || this.options.debug;
-},
+}
+,
+
 initializing: {
-  displayLogo() {
+  displayLogo()
+  {
     if (this.logo) {
       this.printASILogo();
     }
-  },
+  }
+,
 
-  setupServerconsts() {
+  setupServerconsts()
+  {
     // Make constants available in templates
     this.MAIN_DIR = constants.MAIN_DIR;
     this.TEST_DIR = constants.TEST_DIR;
@@ -90,31 +72,10 @@ initializing: {
     this.SERVER_TEST_SRC_DIR = constants.SERVER_TEST_SRC_DIR;
     this.SERVER_TEST_RES_DIR = constants.SERVER_TEST_RES_DIR;
 
-    // Constantes gestion docker
-    /**this.DOCKER_JHIPSTER_REGISTRY = constants.DOCKER_JHIPSTER_REGISTRY;
-    this.DOCKER_JAVA_JRE = constants.DOCKER_JAVA_JRE;
-    this.DOCKER_MYSQL = constants.DOCKER_MYSQL;
-    this.DOCKER_MARIADB = constants.DOCKER_MARIADB;
-    this.DOCKER_POSTGRESQL = constants.DOCKER_POSTGRESQL;
-    this.DOCKER_MONGODB = constants.DOCKER_MONGODB;
-    this.DOCKER_MSSQL = constants.DOCKER_MSSQL;
-    this.DOCKER_ORACLE = constants.DOCKER_ORACLE;
-    this.DOCKER_CASSANDRA = constants.DOCKER_CASSANDRA;
-    this.DOCKER_ELASTICSEARCH = constants.DOCKER_ELASTICSEARCH;
-    this.DOCKER_KAFKA = constants.DOCKER_KAFKA;
-    this.DOCKER_ZOOKEEPER = constants.DOCKER_ZOOKEEPER;
-    this.DOCKER_SONAR = constants.DOCKER_SONAR;
-    this.DOCKER_JHIPSTER_CONSOLE = constants.DOCKER_JHIPSTER_CONSOLE;
-    this.DOCKER_JHIPSTER_ELASTICSEARCH = constants.DOCKER_JHIPSTER_ELASTICSEARCH;
-    this.DOCKER_JHIPSTER_LOGSTASH = constants.DOCKER_JHIPSTER_LOGSTASH;
-    this.DOCKER_CONSUL = constants.DOCKER_CONSUL;
-    this.DOCKER_CONSUL_CONFIG_LOADER = constants.DOCKER_CONSUL_CONFIG_LOADER;*/
-
     this.NODE_VERSION = constants.NODE_VERSION;
     this.YARN_VERSION = constants.YARN_VERSION;
     this.NPM_VERSION = constants.NPM_VERSION;
 
-    this.javaVersion = '8'; // Java version is forced to be 1.8. We keep the variable as it might be useful in the future.
     this.packagejs = packagejs;
     this.applicationType = this.config.get('applicationType') || this.configOptions.applicationType;
     if (!this.applicationType) {
@@ -153,8 +114,8 @@ initializing: {
     } else if (this.databaseType === 'no') {
       // no database, only available for microservice applications
       /**this.devDatabaseType = 'no';
-      this.prodDatabaseType = 'no';
-      this.hibernateCache = 'no';*/
+       this.prodDatabaseType = 'no';
+       this.hibernateCache = 'no';*/
     } else {
       // sql
       this.devDatabaseType = this.config.get('devDatabaseType');
@@ -203,21 +164,11 @@ initializing: {
       this.baseName = baseName;
     }
 
-    // force constiables unused by microservice applications
-    if (this.applicationType === 'microservice' || this.applicationType === 'uaa') {
-      this.clusteredHttpSession = false;
-      this.websocket = false;
-    }
-
     const serverConfigFound = this.packageName !== undefined &&
       this.authenticationType !== undefined &&
-      this.hibernateCache !== undefined &&
-      this.clusteredHttpSession !== undefined &&
-      this.websocket !== undefined &&
       this.databaseType !== undefined &&
       this.devDatabaseType !== undefined &&
       this.prodDatabaseType !== undefined &&
-      this.searchEngine !== undefined &&
       this.buildTool !== undefined;
 
     if (this.baseName !== undefined && serverConfigFound) {
@@ -262,16 +213,24 @@ initializing: {
       this.existingProject = true;
     }
   }
-},
+}
+,
 
 prompting: {
 
-    askForModuleName: prompts.askForModuleName,
-    askForServerSideOpts: prompts.askForServerSideOpts,
-    askForOptionalItems: prompts.askForOptionalItems,
-    askFori18n: prompts.askFori18n,
+  askForModuleName: prompts.askForModuleName,
+    askForServerSideOpts
+:
+  prompts.askForServerSideOpts,
+    askForOptionalItems
+:
+  prompts.askForOptionalItems,
+    askFori18n
+:
+  prompts.askFori18n,
 
-    setSharedConfigOptions() {
+    setSharedConfigOptions()
+  {
     this.configOptions.lastQuestion = this.currentQuestion;
     this.configOptions.totalQuestions = this.totalQuestions;
     this.configOptions.packageName = this.packageName;
@@ -301,10 +260,12 @@ prompting: {
     this.DOCUMENTATION_URL = constants.ASI_GENERATOR_DOCUMENTATION_URL;
     this.DOCUMENTATION_ARCHIVE_URL = `${constants.ASI_GENERATOR_DOCUMENTATION_URL + constants.ASI_GENERATOR_DOCUMENTATION_ARCHIVE_PATH}v${this.asiGenVersion}`;
   }
-},
+}
+,
 
 configuring: {
-  insight() {
+  insight()
+  {
     const insight = this.insight();
     insight.trackWithEvent('generator', 'server');
     insight.track('app/authenticationType', this.authenticationType);
@@ -319,9 +280,11 @@ configuring: {
     insight.track('app/serviceDiscoveryType', this.serviceDiscoveryType);
     insight.track('app/buildTool', this.buildTool);
     insight.track('app/enableSocialSignIn', this.enableSocialSignIn);
-  },
+  }
+,
 
-  configureGlobal() {
+  configureGlobal()
+  {
     // Application name modified, using each technology's conventions
     this.angularAppName = this.getAngularAppName();
     this.camelizedBaseName = _.camelCase(this.baseName);
@@ -342,9 +305,11 @@ configuring: {
       // set to english when translation is set to false
       this.nativeLanguage = 'en';
     }
-  },
+  }
+,
 
-  saveConfig() {
+  saveConfig()
+  {
     this.config.set('asiGenVersion', packagejs.version);
     this.config.set('baseName', this.baseName);
     this.config.set('packageName', this.packageName);
@@ -371,10 +336,13 @@ configuring: {
       this.config.set('languages', this.languages);
     }
   }
-},
+}
+,
 
-default: {
-  getSharedConfigOptions() {
+default:
+{
+  getSharedConfigOptions()
+  {
     this.useSass = this.configOptions.useSass ? this.configOptions.useSass : false;
     if (this.configOptions.enableTranslation !== undefined) {
       this.enableTranslation = this.configOptions.enableTranslation;
@@ -394,18 +362,22 @@ default: {
     this.protractorTests = this.testFrameworks.indexOf('protractor') !== -1;
     this.gatlingTests = this.testFrameworks.indexOf('gatling') !== -1;
     this.cucumberTests = this.testFrameworks.indexOf('cucumber') !== -1;
-  },
+  }
+,
 
-  composeLanguages() {
+  composeLanguages()
+  {
     if (this.configOptions.skipI18nQuestion) return;
 
     this.composeLanguagesSub(this, this.configOptions, 'server');
   }
-},
+}
+,
 
 writing: writeFiles(),
 
-  end() {
+  end()
+{
   if (this.prodDatabaseType === 'oracle') {
     this.log('\n\n');
     this.warning(
@@ -428,4 +400,5 @@ writing: writeFiles(),
   '\n '}${chalk.yellow.bold(`./${executable}`)}${logMsgComment}`));
 }
 
-});
+})
+;

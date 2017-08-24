@@ -2,7 +2,7 @@ const path = require('path');
 const shelljs = require('shelljs');
 const crypto = require('crypto');
 
-const constants = require('../generator-constants');
+const constants = require('../../utils/generator-constants');
 
 module.exports = {
   askForModuleName,

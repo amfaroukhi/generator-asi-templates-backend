@@ -16,6 +16,27 @@ Then generate your new project:
 yo asi-templates-backend
 ```
 
+## Installation pour test en local
+
+First, install [Yeoman](http://yeoman.io) and generator-asi-templates-backend using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+
+```bash
+npm install -g yo
+```
+Clone the project in a local directory.
+In the cloned project, link the generator to your local yeoman modules:
+
+```bash
+yo link
+```
+
+Then generate your new project:
+
+```bash
+yo asi-templates-backend
+```
+
+
 ## Getting To Know Yeoman
 
  * Yeoman has a heart of gold.
@@ -36,3 +57,5 @@ unlicense © [ASI]()
 [daviddm-url]: https://david-dm.org/amfaroukhi/generator-asi-templates-backend
 [coveralls-image]: https://coveralls.io/repos/amfaroukhi/generator-asi-templates-backend/badge.svg
 [coveralls-url]: https://coveralls.io/r/amfaroukhi/generator-asi-templates-backend
+
+<!-- TODO le 30/08/2017: maj des dépendences et liens entre les pom + -->

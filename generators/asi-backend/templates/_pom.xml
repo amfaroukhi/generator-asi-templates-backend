@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>fr.asi.expertise</groupId>
-    <artifactId>asi-templates-backend</artifactId>
+    <artifactId><%= baseName %></artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -22,28 +22,28 @@
     </scm>
 
     <modules>
-        <module>asi-templates-backend-batch</module>
-        <module>asi-templates-backend-business</module>
-        <module>asi-templates-backend-common-dependencies</module>
-        <module>asi-templates-backend-common-dto</module>
-        <module>asi-templates-backend-common-serialize</module>
-        <module>asi-templates-backend-config</module>
-        <module>asi-templates-backend-dao</module>
-        <module>asi-templates-backend-database-services</module>
-        <module>asi-templates-backend-dto</module>
-        <module>asi-templates-backend-ged-services</module>
-        <module>asi-templates-backend-helpers</module>
-        <module>asi-templates-backend-mappers</module>
-        <module>asi-templates-backend-model</module>
-        <module>asi-templates-backend-override</module>
-        <module>asi-templates-backend-report</module>
-        <module>asi-templates-backend-resources</module>
-        <module>asi-templates-backend-serialize</module>
-        <module>asi-templates-backend-technical-services</module>
-        <module>asi-templates-backend-utils</module>
-        <module>asi-templates-backend-validators</module>
-        <module>asi-templates-backend-web-services</module>
-        <module>asi-templates-backend-webapp</module>
+        <module><%= baseName %>-batch</module>
+        <module><%= baseName %>-business</module>
+        <module><%= baseName %>-common-dependencies</module>
+        <module><%= baseName %>-common-dto</module>
+        <module><%= baseName %>-common-serialize</module>
+        <module><%= baseName %>-config</module>
+        <module><%= baseName %>-dao</module>
+        <module><%= baseName %>-database-services</module>
+        <module><%= baseName %>-dto</module>
+        <module><%= baseName %>-ged-services</module>
+        <module><%= baseName %>-helpers</module>
+        <module><%= baseName %>-mappers</module>
+        <module><%= baseName %>-model</module>
+        <module><%= baseName %>-override</module>
+        <module><%= baseName %>-report</module>
+        <module><%= baseName %>-resources</module>
+        <module><%= baseName %>-serialize</module>
+        <module><%= baseName %>-technical-services</module>
+        <module><%= baseName %>-utils</module>
+        <module><%= baseName %>-validators</module>
+        <module><%= baseName %>-web-services</module>
+        <module><%= baseName %>-webapp</module>
     </modules>
 
     <properties>
@@ -188,147 +188,147 @@
             <!-- Project -->
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-business-common-services-int</artifactId>
+                <artifactId><%= baseName %>-business-common-services-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-business-services-int</artifactId>
+                <artifactId><%= baseName %>-business-services-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-common-dependencies</artifactId>
+                <artifactId><%= baseName %>-common-dependencies</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-common-dto</artifactId>
+                <artifactId><%= baseName %>-common-dto</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-dto</artifactId>
+                <artifactId><%= baseName %>-dto</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-common-serialize</artifactId>
+                <artifactId><%= baseName %>-common-serialize</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-serialize</artifactId>
+                <artifactId><%= baseName %>-serialize</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-common-config</artifactId>
+                <artifactId><%= baseName %>-common-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-rest</artifactId>
+                <artifactId><%= baseName %>-rest</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-rest-config</artifactId>
+                <artifactId><%= baseName %>-rest-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-security</artifactId>
+                <artifactId><%= baseName %>-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-security-config</artifactId>
+                <artifactId><%= baseName %>-security-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-tools</artifactId>
+                <artifactId><%= baseName %>-tools</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-tools-config</artifactId>
+                <artifactId><%= baseName %>-tools-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-dao</artifactId>
+                <artifactId><%= baseName %>-dao</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-database-services-int</artifactId>
+                <artifactId><%= baseName %>-database-services-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-ged-services-int</artifactId>
+                <artifactId><%= baseName %>-ged-services-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-helpers</artifactId>
+                <artifactId><%= baseName %>-helpers</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-mappers</artifactId>
+                <artifactId><%= baseName %>-mappers</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-model</artifactId>
+                <artifactId><%= baseName %>-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-report-int</artifactId>
+                <artifactId><%= baseName %>-report-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-i18n</artifactId>
+                <artifactId><%= baseName %>-i18n</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-properties</artifactId>
+                <artifactId><%= baseName %>-properties</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-technical-services-int</artifactId>
+                <artifactId><%= baseName %>-technical-services-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-utils</artifactId>
+                <artifactId><%= baseName %>-utils</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-validators-int</artifactId>
+                <artifactId><%= baseName %>-validators-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-web-services-int</artifactId>
+                <artifactId><%= baseName %>-web-services-int</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-override-dev</artifactId>
+                <artifactId><%= baseName %>-override-dev</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>fr.asi.expertise</groupId>
-                <artifactId>asi-templates-backend-override-rec</artifactId>
+                <artifactId><%= baseName %>-override-rec</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
